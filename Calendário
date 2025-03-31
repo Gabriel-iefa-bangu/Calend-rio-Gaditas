@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendário da Igreja</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div id="loading-screen">
+        <img src="grupo.jpg" alt="Foto do Grupo da Igreja">
+    </div>
+    <header>
+        <h1>Calendário da Igreja</h1>
+    </header>
+    <main>
+        <div id="calendar"></div>
+    </main>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const events = {
+                "2025-04-05": { title: "Culto Jovem", time: "19:00 - 21:00", details: "Encontro de jovens com louvor e palavra." },
+                "2025-04-12": { title: "Círculo de Oração", time: "18:00 - 20:00", details: "Reunião de oração aberta para todos." },
+                "2025-04-20": { title: "Santa Ceia", time: "10:00 - 12:00", details: "Celebração da Santa Ceia com todos os membros." }
+            };let calendarDiv = document.getElementById("calendar");
+        let today = new Date();
+        let month = today.getMonth() + 1;
+        let year = today.getFullYear();
+        let daysInMonth = new Date(year, month, 0).getDate();
+        
+        let calendarHtml = `<h2>${month}/${year}</h2><table>`;
+        for (let day = 1; day <= daysInMonth; day++) {
+            let dateStr = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            if (events[dateStr]) {
+                calendarHtml += `<tr onclick="showEvent('${dateStr}')"><td>${day} - <strong>${events[dateStr].title}</strong></td></tr>`;
+            } else {
+                calendarHtml += `<tr><td>${day}</td></tr>`;
+            }
+        }
+        calendarHtml += "</table>";
+        calendarDiv.innerHTML = calendarHtml;
+    });
+
+    function showEvent(date) {
+        const events = {
+            "2025-04-05": { title: "Culto Jovem", time: "19:00 - 21:00", details: "Encontro de jovens com louvor e palavra." },
+            "2025-04-12": { title: "Círculo de Oração", time: "18:00 - 20:00", details: "Reunião de oração aberta para todos." },
+            "2025-04-20": { title: "Santa Ceia", time: "10:00 - 12:00", details: "Celebração da Santa Ceia com todos os membros." }
+        };
+        if (events[date]) {
+            alert(`${events[date].title}\nHorário: ${events[date].time}\nDetalhes: ${events[date].details}`);
+        }
+    }
+</script>
+
+</body>
+</html>
